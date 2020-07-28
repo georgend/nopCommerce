@@ -2,6 +2,7 @@
 using FluentMigrator;
 using Nop.Core.Domain.Customers;
 using Nop.Core.Domain.Security;
+using Nop.Core.Domain.Logging;
 
 namespace Nop.Data.Migrations.UpgradeTo440
 {
@@ -43,6 +44,42 @@ namespace Nop.Data.Migrations.UpgradeTo440
                     {
                         CustomerRoleId = adminRole.Id,
                         PermissionRecordId = profilingPermission.Id
+                    }
+                );
+            }
+
+            if (!_dataProvider.GetTable<ActivityLogType>().Any(alt => string.Compare(alt.SystemKeyword, "AddNewSpecAttributeGroup", true) == 0))
+            {
+                _dataProvider.InsertEntity(
+                    new ActivityLogType
+                    {
+                        SystemKeyword = "AddNewSpecAttributeGroup",
+                        Enabled = true,
+                        Name = "Add a new specification attribute group"
+                    }
+                );
+            }
+
+            if (!_dataProvider.GetTable<ActivityLogType>().Any(alt => string.Compare(alt.SystemKeyword, "EditSpecAttributeGroup", true) == 0))
+            {
+                _dataProvider.InsertEntity(
+                    new ActivityLogType
+                    {
+                        SystemKeyword = "EditSpecAttributeGroup",
+                        Enabled = true,
+                        Name = "Edit a specification attribute group"
+                    }
+                );
+            }
+
+            if (!_dataProvider.GetTable<ActivityLogType>().Any(alt => string.Compare(alt.SystemKeyword, "DeleteSpecAttributeGroup", true) == 0))
+            {
+                _dataProvider.InsertEntity(
+                    new ActivityLogType
+                    {
+                        SystemKeyword = "DeleteSpecAttributeGroup",
+                        Enabled = true,
+                        Name = "Delete a specification attribute group"
                     }
                 );
             }
