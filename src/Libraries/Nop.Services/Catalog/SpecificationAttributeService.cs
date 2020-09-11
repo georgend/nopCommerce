@@ -79,7 +79,7 @@ namespace Nop.Services.Catalog
         /// <returns>Specification attribute groups</returns>
         public virtual IList<SpecificationAttributeGroup> GetProductSpecificationAttributeGroups(int productId)
         {
-            var productAttributesForGroupQuery = 
+            var productAttributesForGroupQuery =
                 from sa in _specificationAttributeRepository.Table
                 join sao in _specificationAttributeOptionRepository.Table
                     on sa.Id equals sao.SpecificationAttributeId
@@ -88,12 +88,12 @@ namespace Nop.Services.Catalog
                 where psa.ProductId == productId && psa.ShowOnProductPage
                 select sa.SpecificationAttributeGroupId;
 
-            var availableGroupsQuery = 
+            var availableGroupsQuery =
                 from sag in _specificationAttributeGroupRepository.Table
                 where productAttributesForGroupQuery.Any(groupId => groupId == sag.Id)
                 select sag;
 
-            var key = _staticCacheManager.PrepareKeyForDefaultCache(NopCatalogDefaults.ProductSpecificationAttributeGroupAllByProductCacheKey, productId);
+            var key = _staticCacheManager.PrepareKeyForDefaultCache(NopCatalogDefaults.SpecificationAttributeGroupByProductCacheKey, productId);
             return _staticCacheManager.Get(key, availableGroupsQuery.ToList);
         }
 
@@ -104,21 +104,6 @@ namespace Nop.Services.Catalog
         public virtual void DeleteSpecificationAttributeGroup(SpecificationAttributeGroup specificationAttributeGroup)
         {
             _specificationAttributeGroupRepository.Delete(specificationAttributeGroup);
-        }
-
-        /// <summary>
-        /// Deletes specifications attribute group
-        /// </summary>
-        /// <param name="specificationAttributeGroups">Specification attribute groups</param>
-        public virtual void DeleteSpecificationAttributeGroups(IList<SpecificationAttributeGroup> specificationAttributeGroups)
-        {
-            if (specificationAttributeGroups == null)
-                throw new ArgumentNullException(nameof(specificationAttributeGroups));
-
-            foreach (var specificationAttributeGroup in specificationAttributeGroups)
-            {
-                DeleteSpecificationAttributeGroup(specificationAttributeGroup);
-            }
         }
 
         /// <summary>
@@ -363,7 +348,7 @@ namespace Nop.Services.Catalog
             var showOnProductPageCacheStr = showOnProductPage.HasValue ? showOnProductPage.ToString() : "null";
             var specificationAttributeGroupIdCacheStr = specificationAttributeGroupId.HasValue ? specificationAttributeGroupId.ToString() : "null";
 
-            var key = _staticCacheManager.PrepareKeyForDefaultCache(NopCatalogDefaults.ProductSpecificationAttributeByProductCacheKey, 
+            var key = _staticCacheManager.PrepareKeyForDefaultCache(NopCatalogDefaults.ProductSpecificationAttributeByProductCacheKey,
                 productId, specificationAttributeOptionId, allowFilteringCacheStr, showOnProductPageCacheStr, specificationAttributeGroupIdCacheStr);
 
             var query = _productSpecificationAttributeRepository.Table;
@@ -448,7 +433,7 @@ namespace Nop.Services.Catalog
         {
             var query = from product in _productRepository.Table
                 join psa in _productSpecificationAttributeRepository.Table on product.Id equals psa.ProductId
-                join spao in _specificationAttributeOptionRepository.Table on psa.SpecificationAttributeOptionId equals spao.Id 
+                join spao in _specificationAttributeOptionRepository.Table on psa.SpecificationAttributeOptionId equals spao.Id
                 where spao.SpecificationAttributeId == specificationAttributeId
                 orderby product.Name
                 select product;

@@ -343,12 +343,12 @@ namespace Nop.Services.Catalog
         /// <remarks>
         /// {0} : product ID
         /// </remarks>
-        public static CacheKey ProductSpecificationAttributeGroupAllByProductCacheKey => new CacheKey("Nop.productspecificationattributegroup.byproduct.{0}", ProductSpecificationAttributeGroupAllByProductPrefix);
+        public static CacheKey SpecificationAttributeGroupByProductCacheKey => new CacheKey("Nop.specificationattributegroup.byproduct.{0}", SpecificationAttributeGroupByProductPrefix);
 
         /// <summary>
         /// Gets a key pattern to clear cache
         /// </summary>
-        public static string ProductSpecificationAttributeGroupAllByProductPrefix => "Nop.productspecificationattributegroup.byproduct.";
+        public static string SpecificationAttributeGroupByProductPrefix => "Nop.specificationattributegroup.byproduct.";
 
         #endregion
 

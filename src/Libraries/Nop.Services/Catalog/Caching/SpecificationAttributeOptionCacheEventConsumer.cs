@@ -20,7 +20,7 @@ namespace Nop.Services.Catalog.Caching
             RemoveByPrefix(NopCatalogDefaults.ProductSpecificationAttributeAllByProductPrefix);
 
             if (entityEventType == EntityEventType.Delete)
-                RemoveByPrefix(NopCatalogDefaults.ProductSpecificationAttributeGroupAllByProductPrefix);
+                RemoveByPrefix(NopCatalogDefaults.SpecificationAttributeGroupByProductPrefix);
         }
     }
 }

@@ -40,12 +40,6 @@ namespace Nop.Services.Catalog
         void DeleteSpecificationAttributeGroup(SpecificationAttributeGroup specificationAttributeGroup);
 
         /// <summary>
-        /// Deletes specifications attribute group
-        /// </summary>
-        /// <param name="specificationAttributeGroups">Specification attribute groups</param>
-        void DeleteSpecificationAttributeGroups(IList<SpecificationAttributeGroup> specificationAttributeGroups);
-
-        /// <summary>
         /// Inserts a specification attribute group
         /// </summary>
         /// <param name="specificationAttributeGroup">The specification attribute group</param>

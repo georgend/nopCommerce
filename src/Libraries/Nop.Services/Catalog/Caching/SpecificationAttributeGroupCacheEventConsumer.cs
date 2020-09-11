@@ -16,7 +16,7 @@ namespace Nop.Services.Catalog.Caching
         protected override void ClearCache(SpecificationAttributeGroup entity, EntityEventType entityEventType)
         {
             if (entityEventType != EntityEventType.Insert)
-                RemoveByPrefix(NopCatalogDefaults.ProductSpecificationAttributeGroupAllByProductPrefix);
+                RemoveByPrefix(NopCatalogDefaults.SpecificationAttributeGroupByProductPrefix);
         }
     }
 }
